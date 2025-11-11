@@ -1,6 +1,5 @@
-import React, {  useEffect, useState } from "react";
-
-
+import React, { useEffect, useState } from "react";
+import logoImg from '../assets/8941cb75-56ac-4d86-a1ea-5452fde9f131.png'
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router";
 import useAuth from "../hooks/useAuth";
@@ -37,6 +36,9 @@ const Navbar = () => {
       <Link to="/my-accepted-tasks">
         <li className="m-2">My Accepted Tasks</li>
       </Link>
+      <Link to="/my-Added-Jobs">
+        <li className="m-2">My Added Jobs</li>
+      </Link>
     </>
   );
 
@@ -72,7 +74,7 @@ const Navbar = () => {
           to="/"
           className="text-xl flex items-center gap-1 font-bold text-primary"
         >
-          <span className="text-2xl">FreeLancy</span>
+         <img src={logoImg} className="w-8" alt="" /> <span className="text-2xl">FreeLancy</span>
         </Link>
       </div>
 

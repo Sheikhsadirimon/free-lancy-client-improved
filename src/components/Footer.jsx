@@ -1,3 +1,7 @@
+import { Facebook, Instagram } from "lucide-react";
+
+import { FaXTwitter } from "react-icons/fa6";
+
 export default function Footer() {
   return (
     <footer className="bg-base-300 text-primary-foreground py-12  border-primary-foreground/10">
@@ -5,7 +9,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
             <h3 className="font-bold mb-4">FreeLancy</h3>
-            <p className="text-primary-foreground/80 text-sm">The most reliable job marketplace platform</p>
+            <p className="text-primary-foreground/80 text-sm">
+              The most reliable job marketplace platform
+            </p>
           </div>
           <div>
             <h4 className="font-bold mb-4">Company</h4>
@@ -35,8 +41,11 @@ export default function Footer() {
                   href="https://twitter.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-accent transition-colors"
+                  className="hover:text-accent transition-colors items-center flex gap-2"
                 >
+                  <span className="text-xl">
+                    <FaXTwitter />
+                  </span>{" "}
                   Twitter
                 </a>
               </li>
@@ -45,9 +54,9 @@ export default function Footer() {
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-accent transition-colors"
+                  className="hover:text-accent transition-colors flex gap-1"
                 >
-                  Facebook
+                  <Facebook></Facebook> Facebook
                 </a>
               </li>
               <li>
@@ -55,9 +64,9 @@ export default function Footer() {
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-accent transition-colors"
+                  className="hover:text-accent transition-colors flex gap-1"
                 >
-                  Instagram
+                  <Instagram></Instagram> Instagram
                 </a>
               </li>
             </ul>
@@ -68,5 +77,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

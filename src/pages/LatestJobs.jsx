@@ -49,7 +49,7 @@ const LatestJobs = () => {
                 {job.summary}
               </p>
 
-              <Link to={`/jobDetails/`}>
+              <Link to={`/allJobs/${job._id}`}>
                 <button className="btn btn-primary btn-sm mt-4 w-full">
                   View Details
                 </button>
