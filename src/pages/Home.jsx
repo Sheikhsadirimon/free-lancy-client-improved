@@ -1,10 +1,16 @@
 import React from 'react';
 import Banner from './Banner';
+import LatestJobs from './LatestJobs';
+import TopCategories from './TopCategories';
+import AboutPlatform from './AboutPlatform';
 
 const Home = () => {
     return (
         <div>
             <Banner></Banner>
+            <LatestJobs></LatestJobs>
+            <TopCategories></TopCategories>
+            <AboutPlatform></AboutPlatform>
         </div>
     );
 };

@@ -2,7 +2,7 @@ import { Star, Shield, CheckCircle2, LogIn } from "lucide-react";
 import { Link } from "react-router";
 import useAuth from "../hooks/useAuth";
 
-export default function Banner() {
+const Banner = () => {
   const { user } = useAuth();
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-base-100 via-base-100 to-base-200 overflow-hidden">
@@ -114,4 +114,6 @@ export default function Banner() {
       </div>
     </section>
   );
-}
+};
+
+export default Banner;
