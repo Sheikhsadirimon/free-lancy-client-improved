@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
-
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import Loading from "./Loading";
@@ -22,16 +21,19 @@ const AcceptedTasks = () => {
         setTasks(res.data);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(() => {
+        toast.error("Failed to load tasks");
+        setLoading(false);
+      });
   }, [user, axiosSecure]);
 
-  const handleAction = async (id, action) => {
+  const handleAction = async (acceptedTaskId, jobId, action) => {
     const isDone = action === "done";
     const result = await Swal.fire({
       title: isDone ? "Mark as Done?" : "Cancel Task?",
       text: isDone
-        ? "This task will be marked as completed."
-        : "This task will be removed from your list.",
+        ? "This task will be completed and removed from all jobs."
+        : "This task will be cancelled and removed from all jobs.",
       icon: isDone ? "success" : "warning",
       showCancelButton: true,
       confirmButtonColor: isDone ? "#22c55e" : "#ef4444",
@@ -42,15 +44,29 @@ const AcceptedTasks = () => {
     if (!result.isConfirmed) return;
 
     try {
-      await axiosSecure.delete(`/accepted-tasks/${id}`);
-      setTasks((prev) => prev.filter((t) => t._id !== id));
-      toast.success(isDone ? "Task marked as done!" : "Task cancelled");
-    } catch {
-      toast.error("Failed to update task");
+      // DELETE FROM accepted_tasks
+      await axiosSecure.delete(`/accepted-tasks/${acceptedTaskId}`);
+
+      // DELETE FROM jobs (original job)
+      await axiosSecure.delete(`/Jobs/${jobId}`);
+
+      // REMOVE FROM UI
+      setTasks((prev) => prev.filter((t) => t._id !== acceptedTaskId));
+
+      toast.success(isDone ? "Task completed and removed!" : "Task cancelled and removed");
+    } catch (err) {
+      console.error("Delete failed:", err);
+      toast.error("Failed to remove task");
     }
   };
 
-  
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-xl">Please log in to view your tasks</p>
+      </div>
+    );
+  }
 
   if (loading) return <Loading />;
 
@@ -88,13 +104,13 @@ const AcceptedTasks = () => {
                     </p>
                     <div className="flex gap-2 mt-4">
                       <button
-                        onClick={() => handleAction(task._id, "done")}
+                        onClick={() => handleAction(task._id, task.jobId, "done")}
                         className="btn btn-success btn-sm flex-1"
                       >
                         Done
                       </button>
                       <button
-                        onClick={() => handleAction(task._id, "cancel")}
+                        onClick={() => handleAction(task._id, task.jobId, "cancel")}
                         className="btn btn-error btn-sm flex-1"
                       >
                         Cancel
@@ -108,7 +124,69 @@ const AcceptedTasks = () => {
         </div>
 
         {/* Desktop: Table */}
-        
+        <div className="hidden lg:block overflow-x-auto">
+          {tasks.length === 0 ? (
+            <p className="text-center py-12">You haven't accepted any tasks yet.</p>
+          ) : (
+            <table className="table table-zebra w-full bg-base-100 rounded-xl shadow-lg">
+              <thead>
+                <tr className="text-left">
+                  <th className="w-32"></th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Summary</th>
+                  <th>Accepted On</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tasks.map((task) => (
+                  <tr key={task._id} className="hover:bg-base-200">
+                    <td>
+                      <div className="avatar">
+                        <div className="w-20 h-20 rounded-lg overflow-hidden">
+                          <img
+                            src={task.coverImage}
+                            alt={task.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </div>
+                    </td>
+                    <td className="font-semibold">{task.title}</td>
+                    <td>
+                      <div className="badge badge-primary badge-sm">{task.category}</div>
+                    </td>
+                    <td className="max-w-xs text-sm opacity-80 line-clamp-2">
+                      {task.summary}
+                    </td>
+                    <td className="text-xs">
+                      {new Date(task.acceptedAt).toLocaleDateString()}
+                    </td>
+                    <td>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleAction(task._id, task.jobId, "done")}
+                          className="btn btn-success btn-xs"
+                          title="Mark as Done"
+                        >
+                          Done
+                        </button>
+                        <button
+                          onClick={() => handleAction(task._id, task.jobId, "cancel")}
+                          className="btn btn-error btn-xs"
+                          title="Cancel Task"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
     </div>
   );

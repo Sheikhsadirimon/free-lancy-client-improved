@@ -17,23 +17,26 @@ const JobDetails = () => {
   const [alreadyAccepted, setAlreadyAccepted] = useState(false);
 
   useEffect(() => {
-    axiosSecure.get(`/Jobs/${id}`).then((res) => {
-      setJob(res.data);
-      setLoading(false);
-    }).catch(() => {
-      setLoading(false);
-    });
+    axiosSecure
+      .get(`/Jobs/${id}`)
+      .then((res) => {
+        setJob(res.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
 
     if (user) {
-      axiosSecure.get(`/accepted-tasks?email=${user.email}&jobId=${id}`).then((res) => {
-        if (res.data.length > 0) setAlreadyAccepted(true);
-      });
+      axiosSecure
+        .get(`/accepted-tasks?email=${user.email}&jobId=${id}`)
+        .then((res) => {
+          if (res.data.length > 0) setAlreadyAccepted(true);
+        });
     }
   }, [id, user, axiosSecure]);
 
   const handleAccept = async () => {
-    
-
     setAccepting(true);
     try {
       await axiosSecure.post("/accepted-tasks", {
@@ -45,7 +48,6 @@ const JobDetails = () => {
         postedBy: job.postedBy,
         postedByEmail: job.email,
         acceptedBy: user.displayName || user.email,
-        acceptedByEmail: user.email,
         acceptedAt: new Date(),
       });
       toast.success("Job accepted! View in My Tasks");
@@ -58,7 +60,6 @@ const JobDetails = () => {
   };
 
   if (loading) return <Loading />;
-
 
   return (
     <div className="min-h-screen bg-base-200 py-12 px-4">
@@ -75,7 +76,9 @@ const JobDetails = () => {
           <div className="card-body p-8">
             <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-4">
               <div>
-                <span className="badge badge-primary badge-lg">{job.category}</span>
+                <span className="badge badge-primary badge-lg">
+                  {job.category}
+                </span>
                 <h1 className="text-3xl font-bold mt-3">{job.title}</h1>
                 <p className="text-sm opacity-70 mt-1">
                   Posted by <span className="font-medium">{job.postedBy}</span>
@@ -96,7 +99,9 @@ const JobDetails = () => {
 
             <div className="prose max-w-none">
               <h3 className="text-xl font-semibold mb-3">Job Description</h3>
-              <p className="text-base leading-relaxed whitespace-pre-wrap">{job.summary}</p>
+              <p className="text-base leading-relaxed whitespace-pre-wrap">
+                {job.summary}
+              </p>
             </div>
 
             <div className="divider"></div>
@@ -108,7 +113,9 @@ const JobDetails = () => {
 
               {alreadyAccepted ? (
                 <Link to="/my-accepted-tasks" className="flex-1">
-                  <button className="btn btn-success w-full">View in My Tasks</button>
+                  <button className="btn btn-success w-full">
+                    View in My Tasks
+                  </button>
                 </Link>
               ) : (
                 <button

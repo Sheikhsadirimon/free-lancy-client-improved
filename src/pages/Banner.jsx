@@ -110,6 +110,28 @@ const Banner = () => {
               </span>
             </div>
           </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-8 w-full max-w-2xl">
+            <div className="text-center">
+              <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                50,000+
+              </h3>
+              <p className="text-sm text-base-500 mt-1">Active Freelancers</p>
+            </div>
+
+            <div className="text-center">
+              <h3 className="text-4xl font-bold bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">
+                25,000+
+              </h3>
+              <p className="text-sm text-base-500 mt-1">Projects Completed</p>
+            </div>
+
+            <div className="text-center">
+              <h3 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                99%
+              </h3>
+              <p className="text-sm text-base-500 mt-1">Success Rate</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

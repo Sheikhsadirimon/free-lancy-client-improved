@@ -203,7 +203,7 @@ const MyJobs = () => {
           )}
         </div>
 
-        {/* Update Modal */}
+        
         <dialog id="update_modal" className="modal">
           <div className="modal-box w-11/12 max-w-2xl">
             <h3 className="font-bold text-lg mb-4">Update Job</h3>
