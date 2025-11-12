@@ -9,9 +9,12 @@ const ErrorPage = () => {
         <p className="text-base-content/70 mt-2">
           Oops! The page you're looking for doesn't exist.
         </p>
-        <div className="mt-8">
+        <div className="mt-8 space-x-5">
           <Link to="/">
             <button className="btn btn-primary btn-lg">Go Home</button>
+          </Link>
+          <Link to="/all-jobs">
+            <button className="btn btn-primary btn-lg">Browse All Job</button>
           </Link>
         </div>
       </div>
