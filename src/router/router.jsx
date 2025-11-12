@@ -10,6 +10,7 @@ import AddJob from "../pages/AddJob";
 import AllJobs from "../pages/allJobs/AllJobs";
 import ErrorPage from "../pages/ErrorPage";
 import JobDetails from "../pages/JobDetails";
+import MyJobs from "../pages/MyJobs";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/my-accepted-tasks",
         element: <PrivateRoute><AcceptedTask></AcceptedTask></PrivateRoute>
+      },
+      {
+        path:"/my-Added-Jobs",
+        element:<PrivateRoute><MyJobs></MyJobs></PrivateRoute>
       },
       {
         path: "/auth",

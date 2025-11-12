@@ -32,11 +32,7 @@ const JobDetails = () => {
   }, [id, user, axiosSecure]);
 
   const handleAccept = async () => {
-    if (!user) {
-      toast.error("Please log in to accept the job");
-      navigate("/auth/login");
-      return;
-    }
+    
 
     setAccepting(true);
     try {
@@ -63,13 +59,6 @@ const JobDetails = () => {
 
   if (loading) return <Loading />;
 
-  if (!job) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-error text-xl">Job not found</p>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-base-200 py-12 px-4">

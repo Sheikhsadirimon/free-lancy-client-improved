@@ -73,7 +73,7 @@ const AllJobs = () => {
                   </div>
                   <h3 className="font-bold text-lg line-clamp-1">{job.title}</h3>
                   <p className="text-sm opacity-80 mt-1 line-clamp-2">{job.summary}</p>
-                  <Link to={`/allJobs/${job._id}`} className="mt-3 block">
+                  <Link to={`/jobDetails/${job._id}`} className="mt-3 block">
                     <button className="btn btn-primary btn-sm w-full">View Details</button>
                   </Link>
                 </div>
@@ -118,7 +118,7 @@ const AllJobs = () => {
                   <td className="text-sm opacity-70">{job.postedBy}</td>
                   <td className="max-w-xs text-sm opacity-80 line-clamp-2">{job.summary}</td>
                   <td>
-                    <Link to={`/allJobs/${job._id}`}>
+                    <Link to={`/jobDetails/${job._id}`}>
                       <button className="btn btn-primary btn-sm">View Details</button>
                     </Link>
                   </td>
