@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import Loading from "./Loading";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
@@ -85,7 +85,9 @@ const JobDetails = () => {
                 <p className="text-sm opacity-70 mt-1">
                   Posted by <span className="font-medium">{job.postedBy}</span>
                   {isOwnJob && (
-                    <span className="badge badge-accent badge-sm ml-2">Your Job</span>
+                    <span className="badge badge-accent badge-sm ml-2">
+                      Your Job
+                    </span>
                   )}
                 </p>
               </div>
@@ -147,7 +149,6 @@ const JobDetails = () => {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };

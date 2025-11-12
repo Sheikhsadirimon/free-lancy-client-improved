@@ -7,33 +7,35 @@ const instance = axios.create({
 });
 
 const useAxiosSecure = () => {
-
-  const { user,logOut } = useAuth();
+  const { user, logOut } = useAuth();
 
   useEffect(() => {
     const requestInterceptor = instance.interceptors.request.use((config) => {
-      config.headers.authorization = `Bearer ${user.accessToken}`;
+      const token = user.accessToken;
+      if (token) {
+        config.headers.authorization = `Bearer ${token}`;
+      }
       return config;
     });
 
-    instance.interceptors.response.use(res=>{
-      return res
-    },err =>{
-      const status = err.status
-      if(status === 401 || status === 403){
-        console.log("Logged out for bad request")
-        logOut()
-        .then(()=>{
-          
-        })
+    const responseInterceptor = instance.interceptors.response.use(
+      (res) => {
+        return res;
+      },
+      (err) => {
+        const status = err.status;
+        if (status === 401 || status === 403) {
+          // console.log("Logged out for bad request")
+          logOut().then(() => {});
+        }
       }
-    })
-    
+    );
+
     return () => {
       instance.interceptors.request.eject(requestInterceptor);
+      instance.interceptors.response.eject(responseInterceptor);
     };
-
-  }, [user]);
+  }, [user, logOut]);
   return instance;
 };
 export default useAxiosSecure;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import Loading from "./Loading";
 
@@ -197,7 +197,7 @@ const AcceptedTasks = () => {
           )}
         </div>
       </div>
-      <ToastContainer />
+      
     </div>
   );
 };

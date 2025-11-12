@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import logoImg from '../assets/8941cb75-56ac-4d86-a1ea-5452fde9f131.png'
-import { ToastContainer, toast } from "react-toastify";
+import logoImg from "../assets/8941cb75-56ac-4d86-a1ea-5452fde9f131.png";
+import { toast } from "react-toastify";
 import { Link } from "react-router";
 import useAuth from "../hooks/useAuth";
 
@@ -74,7 +74,8 @@ const Navbar = () => {
           to="/"
           className="text-xl flex items-center gap-1 font-bold text-primary"
         >
-         <img src={logoImg} className="w-8" alt="" /> <span className="text-2xl">FreeLancy</span>
+          <img src={logoImg} className="w-8" alt="" />{" "}
+          <span className="text-2xl">FreeLancy</span>
         </Link>
       </div>
 
@@ -159,8 +160,6 @@ const Navbar = () => {
           )}
         </button>
       </div>
-
-      <ToastContainer />
     </div>
   );
 };

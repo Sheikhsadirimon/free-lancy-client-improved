@@ -1,14 +1,13 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser, setUser, updateUser, signInWithGoogle } =
-    useAuth();
+  const { createUser, setUser, updateUser, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const handleSignup = (e) => {
     e.preventDefault();
@@ -42,7 +41,7 @@ const Register = () => {
       })
       .catch((error) => {
         const errorCode = error.code;
-        
+
         toast.error(errorCode);
       });
   };
@@ -154,7 +153,6 @@ const Register = () => {
           </fieldset>
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 };

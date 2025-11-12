@@ -1,7 +1,7 @@
-import React, {  useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 
@@ -39,7 +39,6 @@ const Login = () => {
       });
   };
 
-  
   return (
     <div className="flex justify-center min-h-screen items-center">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl py-5">
@@ -125,7 +124,6 @@ const Login = () => {
           </fieldset>
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 };

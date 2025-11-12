@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Loading from "./Loading";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 const MyJobs = () => {
@@ -290,7 +290,6 @@ const MyJobs = () => {
           </div>
         </dialog>
       </div>
-      <ToastContainer />
     </div>
   );
 };
