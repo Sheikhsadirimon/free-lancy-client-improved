@@ -10,14 +10,14 @@ const LatestJobs = () => {
   const axiosInstance = useAxios();
 
   useEffect(() => {
-    axiosInstance.get("/Jobs").then((res) => {
+  axiosInstance.get("/Jobs").then((res) => {
       setJobs(res.data.slice(0, 6));
       setLoading(false);
     });
   }, [axiosInstance]);
 
   if (loading) {
-    return <Loading></Loading>;
+    return <Loading />;
   }
 
   return (
@@ -26,7 +26,10 @@ const LatestJobs = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {jobs.map((job) => (
-          <div className="card bg-base-200 shadow-2xl hover:scale-90 transition-all duration-300 rounded-2xl overflow-hidden block group">
+          <div
+            key={job._id}
+            className="card bg-base-200 shadow-2xl hover:scale-95 transition-all duration-300 rounded-2xl overflow-hidden flex flex-col h-full"
+          >
             <figure className="h-48">
               <img
                 src={job.coverImage}
@@ -35,29 +38,32 @@ const LatestJobs = () => {
               />
             </figure>
 
-            <div className="card-body p-6">
+            <div className="card-body p-6 flex flex-col flex-grow">
               <div className="flex justify-between items-center mb-2">
                 <span className="badge badge-primary">{job.category}</span>
                 <span className="text-sm opacity-70">by {job.postedBy}</span>
               </div>
 
-              <h3 className="font-bold text-xl group-hover:text-primary transition-colors">
+              <h3 className="font-bold text-xl group-hover:text-primary transition-colors line-clamp-1">
                 {job.title}
               </h3>
 
-              <p className="text-sm opacity-80 mt-2 line-clamp-2">
+              <p className="text-sm opacity-80 mt-2 flex-grow line-clamp-3">
                 {job.summary}
               </p>
 
-              <Link to={`/allJobs/${job._id}`}>
-                <button className="btn btn-primary btn-sm mt-4 w-full">
-                  View Details
-                </button>
-              </Link>
+              <div className="mt-4">
+                <Link to={`/jobDetails/${job._id}`}>
+                  <button className="btn btn-primary btn-sm w-full">
+                    View Details
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         ))}
       </div>
+
       <div className="flex justify-center mt-12">
         <Link to="/all-jobs">
           <button className="btn btn-outline btn-primary px-8">

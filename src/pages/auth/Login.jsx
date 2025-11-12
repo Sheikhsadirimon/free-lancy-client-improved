@@ -19,6 +19,7 @@ const Login = () => {
     signIn(email, password)
       .then((res) => {
         const user = res.user;
+        console.log(user.accessToken)
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {

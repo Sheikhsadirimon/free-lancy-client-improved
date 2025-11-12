@@ -3,10 +3,11 @@ import { Link, useNavigate } from "react-router";
 import useAxios from "../hooks/useAxios";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const AddJob = () => {
   const { user } = useAuth();
-  const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -38,7 +39,7 @@ const AddJob = () => {
 
     setLoading(true);
 
-    axiosInstance.post("/Jobs", {
+    axiosSecure.post("/Jobs", {
       ...formData,
       postedBy: user?.displayName || user?.email?.split("@")[0],
       email: user?.email,
@@ -127,19 +128,7 @@ const AddJob = () => {
                   className="input input-bordered w-full"
                   required
                 />
-                {formData.coverImage && (
-                  <div className="mt-2">
-                    <img
-                      src={formData.coverImage}
-                      alt="Preview"
-                      className="w-full h-48 object-cover rounded-lg"
-                      onError={(e) => {
-                        e.currentTarget.src =
-                          "https://via.placeholder.com/400x200?text=Invalid+URL";
-                      }}
-                    />
-                  </div>
-                )}
+                
               </div>
 
               <div>

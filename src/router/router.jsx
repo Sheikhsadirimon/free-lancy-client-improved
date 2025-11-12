@@ -8,6 +8,8 @@ import PrivateRoute from "../provider/PrivateRoute";
 import AcceptedTask from "../pages/AcceptedTask";
 import AddJob from "../pages/AddJob";
 import AllJobs from "../pages/allJobs/AllJobs";
+import ErrorPage from "../pages/ErrorPage";
+import JobDetails from "../pages/JobDetails";
 
 const router = createBrowserRouter([
   {
@@ -20,8 +22,16 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
+        path:'*',
+        element:<ErrorPage></ErrorPage>
+      },
+      {
         path: "/all-jobs",
         element:<AllJobs></AllJobs>
+      },
+      {
+        path:'/jobDetails/:id',
+        element: <PrivateRoute><JobDetails></JobDetails></PrivateRoute>
       },
       {
         path: "/add-job",

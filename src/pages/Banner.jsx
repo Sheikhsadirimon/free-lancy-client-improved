@@ -59,9 +59,9 @@ const Banner = () => {
           style={{ animationDelay: "0.2s" }}
         >
           <Link to="/add-job">
-            <button class="button px-8 py-3 text-nowrap">
+            <button className="button px-8 py-3 text-nowrap">
               <svg
-                class="svgIcon"
+                className="svgIcon"
                 viewBox="0 0 512 512"
                 height="1em"
                 xmlns="http://www.w3.org/2000/svg"
