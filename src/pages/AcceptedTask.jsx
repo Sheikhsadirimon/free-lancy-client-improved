@@ -44,41 +44,37 @@ const AcceptedTasks = () => {
     if (!result.isConfirmed) return;
 
     try {
-      // DELETE FROM accepted_tasks
       await axiosSecure.delete(`/accepted-tasks/${acceptedTaskId}`);
 
-      // DELETE FROM jobs (original job)
       await axiosSecure.delete(`/Jobs/${jobId}`);
 
-      // REMOVE FROM UI
       setTasks((prev) => prev.filter((t) => t._id !== acceptedTaskId));
 
-      toast.success(isDone ? "Task completed and removed!" : "Task cancelled and removed");
+      toast.success(
+        isDone ? "Task completed and removed!" : "Task cancelled and removed"
+      );
     } catch (err) {
       console.error("Delete failed:", err);
       toast.error("Failed to remove task");
     }
   };
 
-  if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-xl">Please log in to view your tasks</p>
-      </div>
-    );
-  }
 
   if (loading) return <Loading />;
 
   return (
     <div className="min-h-screen bg-base-200 py-12 px-4">
       <div className="container mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-10">My Accepted Tasks</h2>
+        <h2 className="text-3xl font-bold text-center mb-10">
+          My Accepted Tasks
+        </h2>
 
-        {/* Mobile: Cards */}
+        
         <div className="block lg:hidden">
           {tasks.length === 0 ? (
-            <p className="text-center py-12">You haven't accepted any tasks yet.</p>
+            <p className="text-center py-12">
+              You haven't accepted any tasks yet.
+            </p>
           ) : (
             tasks.map((task) => (
               <div
@@ -95,22 +91,33 @@ const AcceptedTasks = () => {
                   </div>
                   <div className="flex-1 p-4">
                     <div className="flex justify-between items-start mb-2">
-                      <span className="badge badge-primary badge-sm">{task.category}</span>
+                      <span className="badge badge-primary badge-sm">
+                        {task.category}
+                      </span>
                     </div>
-                    <h3 className="font-bold text-lg line-clamp-1">{task.title}</h3>
-                    <p className="text-sm opacity-80 mt-1 line-clamp-2">{task.summary}</p>
+                    <h3 className="font-bold text-lg line-clamp-1">
+                      {task.title}
+                    </h3>
+                    <p className="text-sm opacity-80 mt-1 line-clamp-2">
+                      {task.summary}
+                    </p>
                     <p className="text-xs opacity-60 mt-2">
-                      Accepted on: {new Date(task.acceptedAt).toLocaleDateString()}
+                      Accepted on:{" "}
+                      {new Date(task.acceptedAt).toLocaleDateString()}
                     </p>
                     <div className="flex gap-2 mt-4">
                       <button
-                        onClick={() => handleAction(task._id, task.jobId, "done")}
+                        onClick={() =>
+                          handleAction(task._id, task.jobId, "done")
+                        }
                         className="btn btn-success btn-sm flex-1"
                       >
                         Done
                       </button>
                       <button
-                        onClick={() => handleAction(task._id, task.jobId, "cancel")}
+                        onClick={() =>
+                          handleAction(task._id, task.jobId, "cancel")
+                        }
                         className="btn btn-error btn-sm flex-1"
                       >
                         Cancel
@@ -126,7 +133,9 @@ const AcceptedTasks = () => {
         {/* Desktop: Table */}
         <div className="hidden lg:block overflow-x-auto">
           {tasks.length === 0 ? (
-            <p className="text-center py-12">You haven't accepted any tasks yet.</p>
+            <p className="text-center py-12">
+              You haven't accepted any tasks yet.
+            </p>
           ) : (
             <table className="table table-zebra w-full bg-base-100 rounded-xl shadow-lg">
               <thead>
@@ -155,7 +164,9 @@ const AcceptedTasks = () => {
                     </td>
                     <td className="font-semibold">{task.title}</td>
                     <td>
-                      <div className="badge badge-primary badge-sm">{task.category}</div>
+                      <div className="badge badge-primary badge-sm">
+                        {task.category}
+                      </div>
                     </td>
                     <td className="max-w-xs text-sm opacity-80 line-clamp-2">
                       {task.summary}
@@ -166,14 +177,18 @@ const AcceptedTasks = () => {
                     <td>
                       <div className="flex gap-2">
                         <button
-                          onClick={() => handleAction(task._id, task.jobId, "done")}
+                          onClick={() =>
+                            handleAction(task._id, task.jobId, "done")
+                          }
                           className="btn btn-success btn-xs"
                           title="Mark as Done"
                         >
                           Done
                         </button>
                         <button
-                          onClick={() => handleAction(task._id, task.jobId, "cancel")}
+                          onClick={() =>
+                            handleAction(task._id, task.jobId, "cancel")
+                          }
                           className="btn btn-error btn-xs"
                           title="Cancel Task"
                         >

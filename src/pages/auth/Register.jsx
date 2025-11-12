@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, {  useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -42,7 +42,7 @@ const Register = () => {
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
+        
         toast.error(errorCode);
       });
   };
@@ -53,7 +53,7 @@ const Register = () => {
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
+        toast.error(errorCode);
       });
   };
   return (
