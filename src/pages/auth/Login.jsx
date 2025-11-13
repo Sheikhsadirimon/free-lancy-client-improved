@@ -17,20 +17,18 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     signIn(email, password)
-      .then((res) => {
-        const user = res.user;
+      .then(() => {
         // console.log(user.accessToken)
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
         toast.error(errorCode);
       });
   };
   const handleGoogleLogin = () => {
     signInWithGoogle()
-      .then((res) => {
+      .then(() => {
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {

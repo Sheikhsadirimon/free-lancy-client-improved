@@ -34,7 +34,7 @@ const Register = () => {
             setUser({ ...user, displayName: name, photoURL: photo });
             navigate("/");
           })
-          .catch((error) => {
+          .catch(() => {
             // console.log(error)
             setUser(user);
           });
@@ -47,7 +47,7 @@ const Register = () => {
   };
   const handleGoogleLogin = () => {
     signInWithGoogle()
-      .then((res) => {
+      .then(() => {
         navigate("/");
       })
       .catch((error) => {
