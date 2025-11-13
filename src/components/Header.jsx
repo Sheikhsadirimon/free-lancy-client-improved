@@ -43,7 +43,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100  lg:px-10 container mx-auto px-4">
+    <div className="navbar bg-base-100  lg:px-10 container mx-auto ">
       <div className="navbar-start">
         <div className="dropdown dropdown-right">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -64,7 +64,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow z-50"
           >
             {navLinks}
           </ul>
@@ -106,7 +106,7 @@ const Navbar = () => {
 
             <ul
               tabIndex={0}
-              className="menu dropdown-content bg-base-100 rounded-box z-10 mt-2 w-48 p-2 shadow"
+              className="menu dropdown-content bg-base-100 rounded-box z-50 mt-2 w-48 p-2 shadow"
             >
               <li className="px-3 py-2 text-sm font-medium text-base-700">
                 {user.displayName || user.email}
@@ -122,8 +122,8 @@ const Navbar = () => {
             </ul>
           </div>
         ) : (
-          <div className="flex gap-2">
-            <Link to="/auth/login" className="btn btn-outline">
+          <div className="flex items-center gap-2">
+            <Link to="/auth/login" className="btn btn-outline hidden md:inline-flex">
               Login
             </Link>
             <Link to="/auth/signup" className="btn btn-primary">
