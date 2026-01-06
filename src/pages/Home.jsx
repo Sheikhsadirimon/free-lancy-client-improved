@@ -3,6 +3,8 @@ import Banner from './Banner';
 import LatestJobs from './LatestJobs';
 import TopCategories from './TopCategories';
 import AboutPlatform from './AboutPlatform';
+import FAQ from './FAQ';
+import CallToAction from './CallToAction';
 
 const Home = () => {
     return (
@@ -10,7 +12,9 @@ const Home = () => {
             <Banner></Banner>
             <LatestJobs></LatestJobs>
             <TopCategories></TopCategories>
+            <CallToAction></CallToAction>
             <AboutPlatform></AboutPlatform>
+            <FAQ></FAQ>
         </div>
     );
 };

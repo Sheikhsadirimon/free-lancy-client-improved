@@ -29,8 +29,8 @@ const AcceptedTasks = () => {
     const result = await Swal.fire({
       title: isDone ? "Mark as Done?" : "Cancel Task?",
       text: isDone
-        ? "This task will be completed and removed from all jobs."
-        : "This task will be cancelled and removed from all jobs.",
+        ? "This task will be marked as completed."
+        : "This task will be marked as cancelled.",
       icon: isDone ? "success" : "warning",
       showCancelButton: true,
       confirmButtonColor: isDone ? "#22c55e" : "#ef4444",

@@ -21,15 +21,12 @@ export default function Footer() {
                   About Us
                 </a>
               </li>
+
               <li>
-                <a href="#" className="hover:text-accent transition-colors">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-accent transition-colors">
-                  Contact
-                </a>
+                Contact Us : {}
+                <span className="hover:text-accent transition-colors">
+                  Freelancy@yahoo.com
+                </span>
               </li>
             </ul>
           </div>

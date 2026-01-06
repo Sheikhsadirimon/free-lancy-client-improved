@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router";
+import { useParams, Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import Loading from "./Loading";
 import useAuth from "../hooks/useAuth";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+import useAxios from "../hooks/useAxios";           
+import useAxiosSecure from "../hooks/useAxiosSecure"; 
 
 const JobDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxios();         
+  const axiosSecure = useAxiosSecure();   
+  const navigate = useNavigate();
 
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -16,26 +19,38 @@ const JobDetails = () => {
   const [alreadyAccepted, setAlreadyAccepted] = useState(false);
 
   useEffect(() => {
-    axiosSecure
+    // PUBLIC: Fetch job details — works even when logged out
+    axiosPublic
       .get(`/Jobs/${id}`)
       .then((res) => {
         setJob(res.data);
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error("Failed to load job:", err);
         setLoading(false);
       });
 
+    // PROTECTED: Only check if user is logged in
     if (user) {
       axiosSecure
         .get(`/accepted-tasks?email=${user.email}&jobId=${id}`)
         .then((res) => {
           if (res.data.length > 0) setAlreadyAccepted(true);
+        })
+        .catch(() => {
+          // Silent fail — not critical
         });
     }
-  }, [id, user, axiosSecure]);
+  }, [id, user, axiosPublic, axiosSecure]);
 
   const handleAccept = async () => {
+    if (!user) {
+      toast.info("Please log in to accept this job");
+      navigate("/auth/login");
+      return;
+    }
+
     setAccepting(true);
     try {
       await axiosSecure.post("/accepted-tasks", {
@@ -47,7 +62,6 @@ const JobDetails = () => {
         postedBy: job.postedBy,
         postedByEmail: job.email,
         acceptedBy: user.displayName || user.email,
-        acceptedAt: new Date(),
       });
       toast.success("Job accepted! View in My Tasks");
       setAlreadyAccepted(true);
@@ -60,6 +74,14 @@ const JobDetails = () => {
   };
 
   if (loading) return <Loading />;
+
+  if (!job) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-error text-2xl font-bold">Job not found</p>
+      </div>
+    );
+  }
 
   const isOwnJob = user && job.email === user.email;
 
@@ -78,16 +100,12 @@ const JobDetails = () => {
           <div className="card-body p-8">
             <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-4">
               <div>
-                <span className="badge badge-primary badge-lg">
-                  {job.category}
-                </span>
+                <span className="badge badge-primary badge-lg">{job.category}</span>
                 <h1 className="text-3xl font-bold mt-3">{job.title}</h1>
                 <p className="text-sm opacity-70 mt-1">
                   Posted by <span className="font-medium">{job.postedBy}</span>
                   {isOwnJob && (
-                    <span className="badge badge-accent badge-sm ml-2">
-                      Your Job
-                    </span>
+                    <span className="badge badge-accent badge-sm ml-2">Your Job</span>
                   )}
                 </p>
               </div>
@@ -120,18 +138,22 @@ const JobDetails = () => {
 
               {alreadyAccepted ? (
                 <Link to="/my-accepted-tasks" className="flex-1">
-                  <button className="btn btn-success w-full">
-                    View in My Tasks
-                  </button>
+                  <button className="btn btn-success w-full">View in My Tasks</button>
                 </Link>
               ) : (
                 <button
                   onClick={handleAccept}
-                  disabled={accepting || !user || isOwnJob}
+                  disabled={accepting || isOwnJob}
                   className={`btn flex-1 ${
-                    isOwnJob ? "btn-disabled opacity-60" : "btn-primary"
+                    isOwnJob || !user ? "btn-disabled opacity-60" : "btn-primary"
                   }`}
-                  title={isOwnJob ? "You cannot accept your own job" : ""}
+                  title={
+                    isOwnJob
+                      ? "You cannot accept your own job"
+                      : !user
+                      ? "Log in to accept"
+                      : ""
+                  }
                 >
                   {accepting ? (
                     <>
@@ -140,6 +162,8 @@ const JobDetails = () => {
                     </>
                   ) : isOwnJob ? (
                     "Your Job"
+                  ) : !user ? (
+                    "Log in to Accept"
                   ) : (
                     "Accept Job"
                   )}
