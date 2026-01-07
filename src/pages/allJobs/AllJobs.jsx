@@ -41,7 +41,7 @@ const AllJobs = () => {
   }
 
   return (
-    <div className="min-h-screen bg-base-200 py-8 px-4">
+    <div className="min-h-screen bg-base-200 py-30 px-4">
       <div className="container mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
           <h2 className="text-2xl sm:text-3xl font-bold">

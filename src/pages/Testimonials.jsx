@@ -11,18 +11,19 @@ const testimonials = [
   {
     name: "Alex Rivera",
     role: "Product Manager",
-    content: "Professional freelancers and excellent support. Couldn't ask for more.",
+    content:
+      "Professional freelancers and excellent support. Couldn't ask for more.",
     rating: 5,
     avatar: "https://randomuser.me/api/portraits/men/68.jpg",
   },
   {
     name: "Lisa Wong",
     role: "UI/UX Designer",
-    content: "Great clients, fair rates, and timely payments. Love working here!",
+    content:
+      "Great clients, fair rates, and timely payments. Love working here!",
     rating: 5,
     avatar: "https://randomuser.me/api/portraits/women/26.jpg",
   },
-  
 ];
 
 const Testimonials = () => {
@@ -39,7 +40,6 @@ const Testimonials = () => {
               key={index}
               className="bg-base-200 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow"
             >
-              {/* Rating Stars */}
               <div className="flex mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star
@@ -50,12 +50,10 @@ const Testimonials = () => {
                 ))}
               </div>
 
-              {/* Testimonial Text */}
               <p className="text-base-700 mb-6 italic">
                 "{testimonial.content}"
               </p>
 
-              {/* Avatar + Name/Role */}
               <div className="flex items-center gap-4">
                 <div className="avatar">
                   <div className="w-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">

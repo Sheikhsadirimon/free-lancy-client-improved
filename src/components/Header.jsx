@@ -30,6 +30,9 @@ const Navbar = () => {
       <Link to="/all-jobs">
         <li className="m-2">All Jobs</li>
       </Link>
+      <Link to="/about-us">
+        <li className="m-2">About Us</li>
+      </Link>
 
       {user && (
         <>

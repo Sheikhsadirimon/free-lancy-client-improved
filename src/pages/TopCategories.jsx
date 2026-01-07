@@ -42,8 +42,8 @@ const categories = [
 
 const TopCategories = () => {
   return (
-    <section className=" px-4 container mx-auto">
-      <div className=" px-4 container mx-auto">
+    <section className="px-4 py-20 mx-auto bg-base-200">
+      <div className="px-4 container mx-auto">
         <div className="mb-12">
           <h2 className="text-4xl font-bold text-foreground mb-3">
             Top Categories

@@ -57,7 +57,7 @@ const AcceptedTasks = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="min-h-screen bg-base-200 py-12 px-4">
+    <div className="min-h-screen bg-base-200 py-30 px-4">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold text-center mb-10">
           My Accepted Tasks

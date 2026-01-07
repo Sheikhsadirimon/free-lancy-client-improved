@@ -9,6 +9,8 @@ import Testimonials from './Testimonials';
 import Blogs from './Blogs';
 import HowItWorks from './HowItWorks';
 import Features from './Features';
+import Highlights from './Highlights';
+import FinalCTA from './FinalCTA';
 
 const Home = () => {
     return (
@@ -16,12 +18,14 @@ const Home = () => {
             <Banner></Banner>
             <LatestJobs></LatestJobs>
             <TopCategories></TopCategories>
+            <Highlights></Highlights>
             <CallToAction></CallToAction>
             <Testimonials></Testimonials>
             <AboutPlatform></AboutPlatform>
             <Features></Features>
             <HowItWorks></HowItWorks>
             <FAQ></FAQ>
+            <FinalCTA></FinalCTA>
         </div>
     );
 };

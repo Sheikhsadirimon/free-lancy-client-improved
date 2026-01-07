@@ -54,7 +54,7 @@ const AddJob = () => {
   };
 
   return (
-    <div className="min-h-screen bg-base-200 py-12 px-4">
+    <div className="min-h-screen bg-base-200 py-30 px-4">
       <div className="container mx-auto max-w-2xl">
         <div className="card bg-base-100 shadow-xl">
           <div className="card-body">

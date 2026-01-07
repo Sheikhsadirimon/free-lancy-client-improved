@@ -2,7 +2,7 @@ import { Shield, Users, Zap, Award } from "lucide-react"
 
 const AboutPlatform=() =>{
   return (
-    <section className="py-10 px-6 bg-base-200 text-primary-foreground">
+    <section className="py-20 px-6 bg-base-200 text-primary-foreground">
       <div className="max-w-6xl mx-auto">
         <div className="mb-12 text-center">
           <h2 className="text-4xl font-bold mb-3">About FreeLancy Platform</h2>
