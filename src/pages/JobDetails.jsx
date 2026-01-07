@@ -19,7 +19,7 @@ const JobDetails = () => {
   const [alreadyAccepted, setAlreadyAccepted] = useState(false);
 
   useEffect(() => {
-    // PUBLIC: Fetch job details — works even when logged out
+   
     axiosPublic
       .get(`/Jobs/${id}`)
       .then((res) => {
@@ -31,7 +31,7 @@ const JobDetails = () => {
         setLoading(false);
       });
 
-    // PROTECTED: Only check if user is logged in
+    
     if (user) {
       axiosSecure
         .get(`/accepted-tasks?email=${user.email}&jobId=${id}`)
@@ -39,7 +39,7 @@ const JobDetails = () => {
           if (res.data.length > 0) setAlreadyAccepted(true);
         })
         .catch(() => {
-          // Silent fail — not critical
+          
         });
     }
   }, [id, user, axiosPublic, axiosSecure]);
@@ -86,7 +86,7 @@ const JobDetails = () => {
   const isOwnJob = user && job.email === user.email;
 
   return (
-    <div className="min-h-screen bg-base-200 py-12 px-4">
+    <div className="min-h-screen bg-base-200 py-30 px-4">
       <div className="container mx-auto max-w-4xl">
         <div className="card bg-base-100 shadow-xl">
           <figure className="h-64 md:h-96">

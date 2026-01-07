@@ -3,6 +3,26 @@ import { Link } from "react-router";
 import Loading from "./Loading";
 import useAxios from "../hooks/useAxios";
 
+// Helper function to format date as "X days ago" or full date
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffInMs = now - date;
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+  if (diffInDays === 0) return "Today";
+  if (diffInDays === 1) return "Yesterday";
+  if (diffInDays < 7) return `${diffInDays} days ago`;
+  if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
+
+  // Fallback: formatted date
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+};
+
 const LatestJobs = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,8 +30,8 @@ const LatestJobs = () => {
   const axiosInstance = useAxios();
 
   useEffect(() => {
-  axiosInstance.get("/Jobs").then((res) => {
-      setJobs(res.data.slice(0, 6));
+    axiosInstance.get("/Jobs").then((res) => {
+      setJobs(res.data.slice(0, 8));
       setLoading(false);
     });
   }, [axiosInstance]);
@@ -24,7 +44,7 @@ const LatestJobs = () => {
     <div className="my-16 px-4 container mx-auto">
       <h2 className="text-3xl font-bold text-center mb-10">Latest Jobs</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {jobs.map((job) => (
           <div
             key={job._id}
@@ -41,7 +61,9 @@ const LatestJobs = () => {
             <div className="card-body p-6 flex flex-col flex-grow">
               <div className="flex justify-between items-center mb-2">
                 <span className="badge badge-primary">{job.category}</span>
-                <span className="text-sm opacity-70">by {job.postedBy}</span>
+                <span className="text-xs opacity-70">
+                  {formatDate(job.postedAt)}
+                </span>
               </div>
 
               <h3 className="font-bold text-xl group-hover:text-primary transition-colors line-clamp-1">
