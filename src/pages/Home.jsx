@@ -6,6 +6,9 @@ import AboutPlatform from './AboutPlatform';
 import FAQ from './FAQ';
 import CallToAction from './CallToAction';
 import Testimonials from './Testimonials';
+import Blogs from './Blogs';
+import HowItWorks from './HowItWorks';
+import Features from './Features';
 
 const Home = () => {
     return (
@@ -16,6 +19,8 @@ const Home = () => {
             <CallToAction></CallToAction>
             <Testimonials></Testimonials>
             <AboutPlatform></AboutPlatform>
+            <Features></Features>
+            <HowItWorks></HowItWorks>
             <FAQ></FAQ>
         </div>
     );
