@@ -1,6 +1,7 @@
 import { Facebook, Instagram } from "lucide-react";
 
 import { FaXTwitter } from "react-icons/fa6";
+import { Link } from "react-router";
 
 export default function Footer() {
   return (
@@ -17,9 +18,9 @@ export default function Footer() {
             <h4 className="font-bold mb-4">Company</h4>
             <ul className="space-y-2 text-sm text-primary-foreground/80">
               <li>
-                <a href="#" className="hover:text-accent transition-colors">
+                <Link to="/about-us" className="hover:text-accent transition-colors">
                   About Us
-                </a>
+                </Link>
               </li>
 
               <li>
