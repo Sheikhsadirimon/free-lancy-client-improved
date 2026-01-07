@@ -5,6 +5,7 @@ import TopCategories from './TopCategories';
 import AboutPlatform from './AboutPlatform';
 import FAQ from './FAQ';
 import CallToAction from './CallToAction';
+import Testimonials from './Testimonials';
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
             <LatestJobs></LatestJobs>
             <TopCategories></TopCategories>
             <CallToAction></CallToAction>
+            <Testimonials></Testimonials>
             <AboutPlatform></AboutPlatform>
             <FAQ></FAQ>
         </div>
