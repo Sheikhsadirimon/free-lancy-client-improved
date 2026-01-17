@@ -5,6 +5,14 @@ import Loading from "./Loading";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
+// Helper to safely get only the first image
+const getFirstImage = (coverImage) => {
+  if (Array.isArray(coverImage) && coverImage.length > 0) {
+    return coverImage[0];
+  }
+  return coverImage || "https://via.placeholder.com/300x200?text=No+Image";
+};
+
 const MyJobs = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -20,10 +28,15 @@ const MyJobs = () => {
   });
 
   useEffect(() => {
-    axiosSecure.get(`/Jobs?email=${user.email}`).then((res) => {
-      setJobs(res.data);
-      setLoading(false);
-    });
+    axiosSecure
+      .get(`/Jobs?email=${user.email}`)
+      .then((res) => {
+        setJobs(res.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   }, [user, axiosSecure]);
 
   const openModal = (job) => {
@@ -32,7 +45,7 @@ const MyJobs = () => {
       title: job.title,
       category: job.category,
       summary: job.summary,
-      coverImage: job.coverImage,
+      coverImage: getFirstImage(job.coverImage), // Only first image in modal
     });
     document.getElementById("update_modal").showModal();
   };
@@ -59,7 +72,8 @@ const MyJobs = () => {
       );
       toast.success("Job updated successfully!");
       closeModal();
-    } catch {
+    } catch (err) {
+      console.error(err);
       toast.error("Failed to update job");
     }
   };
@@ -94,6 +108,7 @@ const MyJobs = () => {
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold text-center mb-10">My Added Jobs</h2>
 
+        {/* Mobile Cards */}
         <div className="block lg:hidden">
           {jobs.length === 0 ? (
             <p className="text-center py-12">You haven't added any jobs yet.</p>
@@ -106,7 +121,7 @@ const MyJobs = () => {
                 <div className="flex flex-col sm:flex-row">
                   <div className="w-full sm:w-32 h-32 sm:h-auto">
                     <img
-                      src={job.coverImage}
+                      src={getFirstImage(job.coverImage)}
                       alt={job.title}
                       className="w-full h-full object-cover"
                     />
@@ -144,6 +159,7 @@ const MyJobs = () => {
           )}
         </div>
 
+        {/* Desktop Table */}
         <div className="hidden lg:block overflow-x-auto">
           {jobs.length === 0 ? (
             <p className="text-center py-12">You haven't added any jobs yet.</p>
@@ -165,7 +181,7 @@ const MyJobs = () => {
                       <div className="avatar">
                         <div className="w-20 h-20 rounded-lg overflow-hidden">
                           <img
-                            src={job.coverImage}
+                            src={getFirstImage(job.coverImage)}
                             alt={job.title}
                             className="w-full h-full object-cover"
                           />
@@ -204,6 +220,7 @@ const MyJobs = () => {
           )}
         </div>
 
+        {/* Update Modal */}
         <dialog id="update_modal" className="modal">
           <div className="modal-box w-11/12 max-w-2xl">
             <h3 className="font-bold text-lg mb-4">Update Job</h3>

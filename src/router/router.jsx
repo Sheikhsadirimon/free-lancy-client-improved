@@ -12,6 +12,10 @@ import ErrorPage from "../pages/ErrorPage";
 import JobDetails from "../pages/JobDetails";
 import MyJobs from "../pages/MyJobs";
 import AboutUs from "../pages/AboutUs";
+import ContactUs from "../pages/ContactUs";
+import Dashboard from "../pages/Dashboard";
+import DashboardHome from "../pages/DashboardHome";
+import AcceptedTasks from "../pages/AcceptedTask";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/about-us",
         element:<AboutUs></AboutUs>
+      },
+      {
+        path: "/contact-us",
+        element:<ContactUs></ContactUs>
       },
       {
         path:'/jobDetails/:id',
@@ -67,7 +75,21 @@ const router = createBrowserRouter([
         ],
       },
     ],
+    
   },
+  {path:"/dashboard",
+    element: <Dashboard></Dashboard>,
+    children:[
+      {
+        index:true,
+        element:<DashboardHome></DashboardHome>
+      },
+      {
+        path: "/dashboard/my-accepted-tasks",
+        element: <AcceptedTasks></AcceptedTasks>
+      },
+    ]
+  }
 ]);
 
 export default router;

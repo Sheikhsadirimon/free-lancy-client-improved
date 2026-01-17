@@ -13,6 +13,7 @@ const AddJob = () => {
     category: "",
     summary: "",
     coverImage: "",
+    yearsOfExperience: "", 
   });
 
   const [loading, setLoading] = useState(false);
@@ -31,26 +32,34 @@ const AddJob = () => {
       !formData.summary ||
       !formData.coverImage
     ) {
-      toast.error("Please fill in all fields");
+      toast.error("Please fill in all required fields");
       return;
     }
 
     setLoading(true);
 
-    axiosSecure.post("/Jobs", {
-      ...formData,
-      postedBy: user?.displayName || user?.email?.split("@")[0],
-      email: user?.email,
-    });
+    try {
+      await axiosSecure.post("/Jobs", {
+        ...formData,
+        postedBy: user?.displayName || user?.email?.split("@")[0],
+        email: user?.email,
+        
+      });
 
-    toast.success("Job posted successfully!");
+      toast.success("Job posted successfully!");
 
-    setFormData({
+      setFormData({
         title: "",
         category: "",
         summary: "",
         coverImage: "",
+        yearsOfExperience: "",
       });
+    } catch (err) {
+      toast.error("Failed to post job");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -132,6 +141,27 @@ const AddJob = () => {
                   className="input input-bordered w-full"
                   required
                 />
+              </div>
+
+              
+              <div>
+                <label className="label">
+                  <span className="label-text font-medium">
+                    Years of Experience Required (optional)
+                  </span>
+                </label>
+                <input
+                  type="number"
+                  name="yearsOfExperience"
+                  value={formData.yearsOfExperience}
+                  onChange={handleChange}
+                  min="0"
+                  placeholder="e.g. 3"
+                  className="input input-bordered w-full"
+                />
+                <p className="text-xs text-base-content/70 mt-1">
+                  Leave blank if not required
+                </p>
               </div>
 
               <div>

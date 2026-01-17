@@ -26,7 +26,7 @@ export default function Footer() {
               <li>
                 Contact Us : {}
                 <span className="hover:text-accent transition-colors">
-                  Freelancy@yahoo.com
+                  support@freelancy.com
                 </span>
               </li>
             </ul>

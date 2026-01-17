@@ -8,17 +8,23 @@ import useAuth from "../../hooks/useAuth";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const emailRef = useRef();
+  const passwordRef = useRef(); 
   const { signIn, signInWithGoogle } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+
+
+  const DEMO_EMAIL = "demo@freelancy.com";
+  const DEMO_PASSWORD = "Demo123";
+
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+
     signIn(email, password)
       .then(() => {
-        // console.log(user.accessToken)
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
@@ -26,6 +32,7 @@ const Login = () => {
         toast.error(errorCode);
       });
   };
+
   const handleGoogleLogin = () => {
     signInWithGoogle()
       .then(() => {
@@ -37,13 +44,24 @@ const Login = () => {
       });
   };
 
+  
+  const handleDemoLogin = () => {
+    if (emailRef.current && passwordRef.current) {
+      emailRef.current.value = DEMO_EMAIL;
+      passwordRef.current.value = DEMO_PASSWORD;
+
+      toast.info("Demo credentials filled! Click 'Login' to continue.");
+    }
+  };
+
   return (
     <div className="flex justify-center min-h-screen items-center">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl py-5">
         <h2 className="font-bold text-2xl text-center">Login Your Account</h2>
+
         <form onSubmit={handleLogin} className="card-body">
           <fieldset className="fieldset">
-            {/* email  */}
+            {/* Email */}
             <label className="label">Email</label>
             <input
               type="email"
@@ -53,13 +71,15 @@ const Login = () => {
               placeholder="Email"
               required
             />
-            {/* password  */}
+
+            {/* Password */}
             <div className="relative">
               <label className="label">Password</label>
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
                 className="input"
+                ref={passwordRef} 
                 placeholder="Password"
                 required
               />
@@ -75,10 +95,22 @@ const Login = () => {
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>
+
             <button type="submit" className="btn btn-neutral mt-4">
               Login
             </button>
+
+            {/*  Demo Login Button */}
+            <button
+              type="button"
+              onClick={handleDemoLogin}
+              className="btn btn-primary mt-2"
+            >
+              Demo Login (Quick Test)
+            </button>
+
             <div className="divider">OR</div>
+
             <button
               type="button"
               onClick={handleGoogleLogin}
@@ -113,6 +145,7 @@ const Login = () => {
               </svg>
               Login with Google
             </button>
+
             <p className="font-semibold text-center pt-5">
               Don't Have An Account?{" "}
               <Link className="text-red-400" to={"/auth/signup"}>

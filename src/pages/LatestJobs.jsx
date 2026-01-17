@@ -4,7 +4,6 @@ import useAxios from "../hooks/useAxios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const now = new Date();
@@ -30,13 +29,24 @@ const LatestJobs = () => {
   const axiosInstance = useAxios();
 
   useEffect(() => {
-    axiosInstance.get("/Jobs").then((res) => {
-      setJobs(res.data.slice(0, 8));
-      setLoading(false);
-    }).catch(() => {
-      setLoading(false);
-    });
+    axiosInstance
+      .get("/Jobs")
+      .then((res) => {
+        setJobs(res.data.slice(0, 8));
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   }, [axiosInstance]);
+
+  
+  const getFirstImage = (coverImage) => {
+    if (Array.isArray(coverImage) && coverImage.length > 0) {
+      return coverImage[0];
+    }
+    return coverImage || "https://via.placeholder.com/300x200?text=No+Image";
+  };
 
   return (
     <div className="my-16 px-4 container mx-auto">
@@ -44,10 +54,14 @@ const LatestJobs = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {loading
-          ? Array(8)
+          ? 
+            Array(8)
               .fill(0)
               .map((_, i) => (
-                <div key={i} className="card bg-base-200 rounded-2xl overflow-hidden flex flex-col h-full">
+                <div
+                  key={i}
+                  className="card bg-base-200 rounded-2xl overflow-hidden flex flex-col h-full"
+                >
                   <Skeleton height={192} className="w-full" />
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between">
@@ -60,14 +74,15 @@ const LatestJobs = () => {
                   </div>
                 </div>
               ))
-          : jobs.map((job) => (
+          : // Real jobs
+            jobs.map((job) => (
               <div
                 key={job._id}
                 className="card bg-base-200 shadow-2xl hover:scale-95 transition-all duration-300 rounded-2xl overflow-hidden flex flex-col h-full"
               >
                 <figure className="h-48">
                   <img
-                    src={job.coverImage}
+                    src={getFirstImage(job.coverImage)}
                     alt={job.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
@@ -101,7 +116,7 @@ const LatestJobs = () => {
             ))}
       </div>
 
-      {!loading && (
+      {!loading && jobs.length > 0 && (
         <div className="flex justify-center mt-12">
           <Link to="/all-jobs">
             <button className="btn btn-outline btn-primary px-8">

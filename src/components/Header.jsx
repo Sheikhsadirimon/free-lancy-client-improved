@@ -33,6 +33,9 @@ const Navbar = () => {
       <Link to="/about-us">
         <li className="m-2">About Us</li>
       </Link>
+      <Link to="/contact-us">
+        <li className="m-2">Contact Us</li>
+      </Link>
 
       {user && (
         <>
@@ -51,11 +54,8 @@ const Navbar = () => {
   );
 
   return (
-    
     <div className="fixed top-0 left-0 right-0 z-50 bg-base-100 shadow-sm">
-      
       <div className="navbar container mx-auto px-4 lg:px-10">
-        
         <div className="navbar-start">
           <div className="dropdown dropdown-right">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -91,14 +91,12 @@ const Navbar = () => {
           </Link>
         </div>
 
-      
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 font-medium text-lg">
             {navLinks}
           </ul>
         </div>
 
-        
         <div className="navbar-end gap-2">
           {user ? (
             <div className="dropdown dropdown-end">
@@ -124,6 +122,19 @@ const Navbar = () => {
               >
                 <li className="px-3 py-2 text-sm font-medium text-base-700">
                   {user.displayName || user.email}
+                </li>
+                <li className="my-2">
+                  <Link to="/dashboard" className="flex items-center gap-5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM5 9a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm0 4a1 1 0 011-1h6a1 1 0 110 2H6a1 1 0 01-1-1zm0 4a1 1 0 011-1h4a1 1 0 110 2H6a1 1 0 01-1-1z" />
+                    </svg>
+                    Dashboard
+                  </Link>
                 </li>
                 <li>
                   <button
