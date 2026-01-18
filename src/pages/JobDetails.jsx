@@ -195,7 +195,7 @@ const JobDetails = () => {
               </Link>
 
               {alreadyAccepted ? (
-                <Link to="/my-accepted-tasks" className="flex-1">
+                <Link to="/dashboard/my-accepted-tasks" className="flex-1">
                   <button className="btn btn-success w-full">
                     View in My Tasks
                   </button>

@@ -42,12 +42,7 @@ const Navbar = () => {
           <Link to="/add-job">
             <li className="m-2">Add a Job</li>
           </Link>
-          <Link to="/my-accepted-tasks">
-            <li className="m-2">My Accepted Tasks</li>
-          </Link>
-          <Link to="/my-Added-Jobs">
-            <li className="m-2">My Added Jobs</li>
-          </Link>
+          
         </>
       )}
     </>
@@ -148,7 +143,7 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="flex gap-2">
-              <Link to="/auth/login" className="btn btn-outline">
+              <Link to="/auth/login" className="btn btn-outline hidden lg:inline-flex">
                 Login
               </Link>
               <Link to="/auth/signup" className="btn btn-primary">

@@ -5,6 +5,14 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import Loading from "./Loading";
 
+
+const getFirstImage = (coverImage) => {
+  if (Array.isArray(coverImage) && coverImage.length > 0) {
+    return coverImage[0];
+  }
+  return coverImage || "https://via.placeholder.com/300x200?text=No+Image";
+};
+
 const AcceptedTasks = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -46,7 +54,7 @@ const AcceptedTasks = () => {
       setTasks((prev) => prev.filter((t) => t._id !== acceptedTaskId));
 
       toast.success(
-        isDone ? "Task completed and removed!" : "Task cancelled and removed"
+        isDone ? "Task completed and removed!" : "Task cancelled and removed",
       );
     } catch (err) {
       console.error("Delete failed:", err);
@@ -57,12 +65,13 @@ const AcceptedTasks = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="min-h-screen bg-base-200 py-30 px-4">
+    <div className="min-h-screen bg-base-200 py-5 px-4">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold text-center mb-10">
           My Accepted Tasks
         </h2>
 
+        {/* Mobile Cards */}
         <div className="block lg:hidden">
           {tasks.length === 0 ? (
             <p className="text-center py-12">
@@ -77,7 +86,7 @@ const AcceptedTasks = () => {
                 <div className="flex flex-col sm:flex-row">
                   <div className="w-full sm:w-32 h-32 sm:h-auto">
                     <img
-                      src={task.coverImage}
+                      src={getFirstImage(task.coverImage)}
                       alt={task.title}
                       className="w-full h-full object-cover"
                     />
@@ -120,6 +129,7 @@ const AcceptedTasks = () => {
           )}
         </div>
 
+        {/* Desktop Table */}
         <div className="hidden lg:block overflow-x-auto">
           {tasks.length === 0 ? (
             <p className="text-center py-12">
@@ -143,7 +153,7 @@ const AcceptedTasks = () => {
                       <div className="avatar">
                         <div className="w-20 h-20 rounded-lg overflow-hidden">
                           <img
-                            src={task.coverImage}
+                            src={getFirstImage(task.coverImage)}
                             alt={task.title}
                             className="w-full h-full object-cover"
                           />

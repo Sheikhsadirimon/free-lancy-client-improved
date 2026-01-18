@@ -58,7 +58,7 @@ const DashboardHome = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
             <div className="card-body">
               <div className="flex items-center gap-4">
@@ -85,7 +85,7 @@ const DashboardHome = () => {
                 </div>
               </div>
               <Link
-                to="/my-Added-Jobs"
+                to="/dashboard/my-Added-Jobs"
                 className="text-sm text-primary mt-2 hover:underline"
               >
                 View All →
@@ -127,36 +127,7 @@ const DashboardHome = () => {
             </div>
           </div>
 
-          <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
-            <div className="card-body">
-              <div className="flex items-center gap-4">
-                <div className="bg-info/10 p-4 rounded-full">
-                  <svg
-                    className="w-8 h-8 text-info"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">Pending Proposals</h3>
-                  <p className="text-3xl font-bold text-info">
-                    {stats.pendingProposals}
-                  </p>
-                </div>
-              </div>
-              <p className="text-sm text-base-content/70 mt-2">
-                Check your proposals
-              </p>
-            </div>
-          </div>
+          
         </div>
 
         {/* Quick Actions */}

@@ -5,7 +5,7 @@ import Loading from "./Loading";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
-// Helper to safely get only the first image
+
 const getFirstImage = (coverImage) => {
   if (Array.isArray(coverImage) && coverImage.length > 0) {
     return coverImage[0];
@@ -45,7 +45,7 @@ const MyJobs = () => {
       title: job.title,
       category: job.category,
       summary: job.summary,
-      coverImage: getFirstImage(job.coverImage), // Only first image in modal
+      coverImage: getFirstImage(job.coverImage), 
     });
     document.getElementById("update_modal").showModal();
   };
@@ -104,7 +104,7 @@ const MyJobs = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="min-h-screen bg-base-200 py-30 px-4">
+    <div className="min-h-screen bg-base-200 py-5 px-4">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold text-center mb-10">My Added Jobs</h2>
 

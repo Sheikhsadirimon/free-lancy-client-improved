@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, Outlet } from "react-router";
 import useAuth from "../hooks/useAuth";
 import logoImg from "../assets/8941cb75-56ac-4d86-a1ea-5452fde9f131.png"
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const { user, logOut } = useAuth();
@@ -15,10 +16,10 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-base-200 flex flex-col">
-      {/* Top Navbar */}
+   
       <nav className="fixed top-0 left-0 right-0 z-50 bg-base-100 shadow-md">
         <div className="navbar container mx-auto px-4 lg:px-10">
-          {/* Left - Logo & Mobile Menu Toggle */}
+     
           <div className="navbar-start">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -46,7 +47,7 @@ const Dashboard = () => {
             </Link>
           </div>
 
-          {/* Right - Profile Dropdown */}
+     
           <div className="navbar-end">
             <div className="dropdown dropdown-end">
               <div
@@ -91,9 +92,9 @@ const Dashboard = () => {
         </div>
       </nav>
 
-      {/* Main Layout */}
+
       <div className="flex flex-1 pt-16">
-        {/* Sidebar */}
+    
         <aside
           className={`fixed inset-y-0 left-0 z-40 w-64 bg-base-100 shadow-lg transform transition-transform duration-300 lg:translate-x-0 lg:relative lg:inset-auto ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -103,10 +104,10 @@ const Dashboard = () => {
             <h3 className="text-xl font-bold mb-8 text-primary">Dashboard</h3>
 
             <ul className="menu menu-vertical gap-2">
-              {/* My Profile Section */}
+          
               <li className="menu-title text-base-content/70">My Profile</li>
               <li>
-                <Link to="/dashboard/profile" className="flex items-center gap-3">
+                <Link to="/dashboard/my-profile" className="flex items-center gap-3">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
@@ -114,24 +115,24 @@ const Dashboard = () => {
                 </Link>
               </li>
 
-              {/* Other sidebar items (add more as needed) */}
+             
               <li className="menu-title text-base-content/70 mt-6">Jobs & Tasks</li>
               <li>
-                <Link to="/my-Added-Jobs">My Posted Jobs</Link>
+                <Link to="/dashboard/my-Added-Jobs">💼 My Posted Jobs</Link>
               </li>
               <li>
-                <Link to="/my-accepted-tasks">My Accepted Tasks</Link>
+                <Link to="/dashboard/my-accepted-tasks">✅ My Accepted Tasks</Link>
               </li>
               <li>
-                <Link to="/add-job">Post New Job</Link>
+                <Link to="/add-job">📝 Post New Job</Link>
               </li>
             </ul>
           </div>
         </aside>
 
-        {/* Main Content Area */}
+       
         <main className="flex-1 p-6 lg:p-10 overflow-y-auto">
-          {/* Close sidebar button on mobile */}
+         
           {sidebarOpen && (
             <button
               onClick={() => setSidebarOpen(false)}
@@ -141,7 +142,7 @@ const Dashboard = () => {
             </button>
           )}
 
-          {/* Render child routes (e.g., /dashboard, /dashboard/profile) */}
+          
           <Outlet />
         </main>
       </div>

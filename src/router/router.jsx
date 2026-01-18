@@ -16,6 +16,7 @@ import ContactUs from "../pages/ContactUs";
 import Dashboard from "../pages/Dashboard";
 import DashboardHome from "../pages/DashboardHome";
 import AcceptedTasks from "../pages/AcceptedTask";
+import MyProfile from "../pages/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -53,14 +54,6 @@ const router = createBrowserRouter([
         element: <PrivateRoute><AddJob></AddJob></PrivateRoute>
       },
       {
-        path: "/my-accepted-tasks",
-        element: <PrivateRoute><AcceptedTask></AcceptedTask></PrivateRoute>
-      },
-      {
-        path:"/my-Added-Jobs",
-        element:<PrivateRoute><MyJobs></MyJobs></PrivateRoute>
-      },
-      {
         path: "/auth",
         element: <AuthLayout></AuthLayout>,
         children: [
@@ -78,7 +71,7 @@ const router = createBrowserRouter([
     
   },
   {path:"/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children:[
       {
         index:true,
@@ -87,6 +80,14 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/my-accepted-tasks",
         element: <AcceptedTasks></AcceptedTasks>
+      },
+      {
+        path: "/dashboard/my-Added-Jobs",
+        element: <MyJobs></MyJobs>
+      },
+      {
+        path: "/dashboard/my-profile",
+        element: <MyProfile></MyProfile>
       },
     ]
   }
